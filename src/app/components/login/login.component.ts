@@ -36,4 +36,25 @@ export class LoginComponent implements OnInit {
       ? (this.passwordType = 'text')
       : (this.passwordType = 'password');
   }
+  onSubmit() {
+    if (this.loginForm.valid) {
+      //send data to backend
+      console.log(this.loginForm.value);
+    } else {
+      //throw error using toaster and with required field
+      this.validateAllFormFields(this.loginForm);
+      alert('Form is not valid');
+    }
+  }
+
+  private validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
 }
