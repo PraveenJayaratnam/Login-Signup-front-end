@@ -11,7 +11,8 @@
           <div class="panel-body p-3">
             <form [formGroup]="loginForm" novalidate>
               <div class="form-group pt-3">
-                <div class="input-field">
+                <div class="input-field"
+                  [class.error]="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')">
                   <span class="fa fa-user p-2"></span>
                   <input type="text" placeholder="Username" formControlName="username">
                 </div>
@@ -20,7 +21,8 @@
                 *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')">*Username
                 is required</small>
               <div class="form-group pt-3">
-                <div class="input-field">
+                <div class="input-field"
+                  [class.error]="loginForm.controls['password'].dirty && loginForm.controls['password'].hasError('required')">
                   <span class="fa fa-lock p-2"></span>
                   <input [type]="passwordType" placeholder="Password" formControlName="password">
                   <span (click)="hideShowPassword()" class="fa {{eyeIcon}} p-2"></span>
